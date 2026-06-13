@@ -4,6 +4,7 @@ import joblib
 import pandas as pd
 import numpy as np
 import textstat
+import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -13,6 +14,14 @@ from imblearn.over_sampling import SMOTE
 
 # Set paths
 base_path = os.path.dirname(os.path.abspath(__file__))
+
+# Download NLTK data to local directory during build
+nltk_data_dir = os.path.join(base_path, "nltk_data")
+os.makedirs(nltk_data_dir, exist_ok=True)
+print("Downloading NLTK resources to local directory...")
+nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
+nltk.download('wordnet', download_dir=nltk_data_dir, quiet=True)
+nltk.download('omw-1.4', download_dir=nltk_data_dir, quiet=True)
 clean_csv_path = os.path.join(base_path, "data", "fake_job_postings_cleaned.csv")
 models_dir = os.path.join(base_path, "models")
 

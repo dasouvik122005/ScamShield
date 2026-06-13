@@ -19,20 +19,26 @@ from nltk.tokenize import RegexpTokenizer
 # Initialize Flask app
 app = Flask(__name__)
 
-# Ensure NLTK resources are downloaded at startup
-nltk.download('stopwords', quiet=True)
-nltk.download('wordnet', quiet=True)
-nltk.download('omw-1.4', quiet=True)
+# Load models and data mapping
+base_path = os.path.dirname(os.path.abspath(__file__))
+models_dir = os.path.join(base_path, "models")
+ratios_path = os.path.join(base_path, "data", "location_ratios.json")
+
+# Set up local NLTK data path
+nltk_data_dir = os.path.join(base_path, "nltk_data")
+nltk.data.path.append(nltk_data_dir)
+
+# Ensure NLTK resources are available locally
+if not os.path.exists(nltk_data_dir):
+    os.makedirs(nltk_data_dir, exist_ok=True)
+    nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
+    nltk.download('wordnet', download_dir=nltk_data_dir, quiet=True)
+    nltk.download('omw-1.4', download_dir=nltk_data_dir, quiet=True)
 
 stop_words = set(stopwords.words('english'))
 lemmatizer = WordNetLemmatizer()
 tokenizer = RegexpTokenizer(r'\w+')
 stemmer = PorterStemmer()
-
-# Load models and data mapping
-base_path = os.path.dirname(os.path.abspath(__file__))
-models_dir = os.path.join(base_path, "models")
-ratios_path = os.path.join(base_path, "data", "location_ratios.json")
 
 print("Loading models...")
 tfidf_vectorizer = joblib.load(os.path.join(models_dir, "tfidf_vectorizer.pkl"))
