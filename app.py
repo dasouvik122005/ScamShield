@@ -19,19 +19,13 @@ from nltk.tokenize import RegexpTokenizer
 # Initialize Flask app
 app = Flask(__name__)
 
-# Ensure NLTK resources are available
-try:
-    stop_words = set(stopwords.words('english'))
-except LookupError:
-    nltk.download('stopwords')
-    stop_words = set(stopwords.words('english'))
+# Ensure NLTK resources are downloaded at startup
+nltk.download('stopwords', quiet=True)
+nltk.download('wordnet', quiet=True)
+nltk.download('omw-1.4', quiet=True)
 
-try:
-    lemmatizer = WordNetLemmatizer()
-except LookupError:
-    nltk.download('wordnet')
-    lemmatizer = WordNetLemmatizer()
-
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
 tokenizer = RegexpTokenizer(r'\w+')
 stemmer = PorterStemmer()
 
