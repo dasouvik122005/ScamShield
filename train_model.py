@@ -31,6 +31,11 @@ os.makedirs(models_dir, exist_ok=True)
 print("Loading cleaned dataset...")
 df = pd.read_csv(clean_csv_path)
 
+# Downsample on Render to stay within 512MB RAM and avoid build timeouts
+if os.environ.get('RENDER'):
+    print("  Detected Render environment. Downsampling dataset for memory and speed efficiency...")
+    df = df.sample(n=min(3000, len(df)), random_state=53).reset_index(drop=True)
+
 # Fill NaNs in text with empty string just in case
 df['text'] = df['text'].fillna('')
 

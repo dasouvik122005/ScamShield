@@ -28,14 +28,31 @@ ratios_path = os.path.join(base_path, "data", "location_ratios.json")
 nltk_data_dir = os.path.join(base_path, "nltk_data")
 nltk.data.path.append(nltk_data_dir)
 
-# Ensure NLTK resources are available locally
-if not os.path.exists(nltk_data_dir):
-    os.makedirs(nltk_data_dir, exist_ok=True)
-    nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
-    nltk.download('wordnet', download_dir=nltk_data_dir, quiet=True)
-    nltk.download('omw-1.4', download_dir=nltk_data_dir, quiet=True)
+# Ensure NLTK resources are available locally (download in background if on Render to avoid boot timeouts)
+def download_nltk_resources():
+    try:
+        os.makedirs(nltk_data_dir, exist_ok=True)
+        nltk.download('stopwords', download_dir=nltk_data_dir, quiet=True)
+        nltk.download('wordnet', download_dir=nltk_data_dir, quiet=True)
+        nltk.download('omw-1.4', download_dir=nltk_data_dir, quiet=True)
+    except Exception as e:
+        print(f"Error downloading NLTK data in background: {e}")
 
-stop_words = set(stopwords.words('english'))
+if os.environ.get('RENDER'):
+    import threading
+    threading.Thread(target=download_nltk_resources).start()
+else:
+    # Run synchronously locally to ensure it is immediately available
+    if not os.path.exists(nltk_data_dir) or len(os.listdir(nltk_data_dir)) < 2:
+        download_nltk_resources()
+
+# Load stop_words safely with lazy/fallback load
+stop_words = None
+try:
+    stop_words = set(stopwords.words('english'))
+except Exception:
+    pass
+
 lemmatizer = WordNetLemmatizer()
 tokenizer = RegexpTokenizer(r'\w+')
 stemmer = PorterStemmer()
@@ -104,16 +121,29 @@ def compute_engineered_features(text):
 
 # Helper function to preprocess text matching eda.ipynb
 def preprocess_text(text):
+    global stop_words
     if not isinstance(text, str):
         text = ""
     # Punctuation removal
     no_punct = "".join([c for c in text if c not in string.punctuation])
     # Tokenization & Lowercasing
     tokens = tokenizer.tokenize(no_punct.lower())
+    
+    # Lazy load or fallback stop words
+    if stop_words is None:
+        try:
+            stop_words = set(stopwords.words('english'))
+        except Exception:
+            # Standard NLTK English stopwords list
+            stop_words = {'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers', 'herself', 'it', "it's", 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 'what', 'which', 'who', 'whom', 'this', 'that', "that'll", 'these', 'those', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 'can', 'will', 'just', 'don', "don't", 'should', "should've", 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"}
+            
     # Stopwords removal
     filtered_tokens = [w for w in tokens if w not in stop_words]
     # Lemmatization
-    lemmed = [lemmatizer.lemmatize(i) for i in filtered_tokens]
+    try:
+        lemmed = [lemmatizer.lemmatize(i) for i in filtered_tokens]
+    except Exception:
+        lemmed = filtered_tokens
     # Stemming
     stemmed = " ".join([stemmer.stem(i) for i in lemmed])
     # Remove numbers
