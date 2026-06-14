@@ -181,6 +181,26 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
+
+@app.route('/security')
+def security():
+    return render_template('security.html')
+
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+
 def extract_json_ld(soup):
     """Attempt to find and parse Schema.org JobPosting json-ld markup."""
     for script in soup.find_all('script', type='application/ld+json'):

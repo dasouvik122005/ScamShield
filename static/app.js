@@ -16,25 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fillCircle.style.strokeDasharray = `${circumference} ${circumference}`;
 
     // ============================================================
-    // Theme Toggle Logic
-    // ============================================================
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    
-    // Check saved theme or preference
-    const savedTheme = localStorage.getItem('scamshield-theme');
-    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    
-    if (savedTheme === 'light' || (!savedTheme && systemPrefersLight)) {
-        document.body.classList.add('light-theme');
-    }
-    
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        const currentTheme = document.body.classList.contains('light-theme') ? 'light' : 'dark';
-        localStorage.setItem('scamshield-theme', currentTheme);
-    });
-
-    // ============================================================
     // Tab Switching Logic
     // ============================================================
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -336,33 +317,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dataset Templates
     // ============================================================
     const realTemplate = {
-        title: "Marketing Intern",
-        location: "US, NY, New York",
-        required_experience: "Internship",
-        required_education: "Unspecified",
-        industry: "Marketing and Advertising",
-        function: "Marketing",
-        company_profile: "We're Food52, and we've created a groundbreaking and award-winning cooking site. We support, connect, and celebrate home cooks, and give them everything they need in one place.We have a top editorial, business, and engineering team. We're focused on using technology to find new and better ways to connect people around their specific food interests, and to offer them superb, highly curated information about food and cooking. We attract the most talented home cooks and contributors in the country; we also publish well-known professionals like Mario Batali, Gwyneth Paltrow, and Danny Meyer.",
-        description: "Food52, a fast-growing, James Beard Award-winning online food community and crowd-sourced and curated recipe hub, is currently interviewing full- and part-time unpaid interns to work in a small team of editors, executives, and developers in its New York City headquarters. Reproducing and/or repackaging existing Food52 content for a number of partner sites, such as Huffington Post, Yahoo, Buzzfeed, and more in their various content management systems. Researching blogs and websites for the Provisions by Food52 Affiliate Program. Assisting in day-to-day affiliate program support.",
-        requirements: "Experience with content management systems a major plus (any blogging counts!). Familiar with the Food52 editorial voice and aesthetic. Loves food, appreciates the importance of home cooking and cooking with the seasons. Meticulous editor, perfectionist, obsessive attention to detail, maddened by typos and broken links, delighted by finding and fixing them. Cheerful under pressure. Excellent communication skills.",
-        benefits: "Unpaid internship with college credit, mentoring from executives, and delicious food/tastings in our test kitchen.",
+        title: "Software Engineer, Backend Systems",
+        location: "US, CA, Mountain View",
+        required_experience: "Mid-Senior level",
+        required_education: "Bachelor's Degree",
+        industry: "Information Technology and Services",
+        function: "Engineering",
+        company_profile: "Google LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics. Founded in 1998 by Larry Page and Sergey Brin, Google is one of the most valuable companies in the world, consistently ranked among the top employers globally. Our mission is to organize the world's information and make it universally accessible and useful.",
+        description: "As a Software Engineer at Google, you will work on a specific project critical to Google's needs with opportunities to switch teams and projects as you and our fast-paced business grow and evolve. You will design, develop, test, deploy, maintain, and improve software across Google's stack. You will manage project priorities, deadlines, and deliverables and work in an Agile environment. You will collaborate with cross-functional teams spanning infrastructure, product, and data engineering.",
+        requirements: "Bachelor's degree in Computer Science or related technical field, or equivalent practical experience. 3+ years of software development experience in one or more general-purpose programming languages (Java, Python, Go, C++). Experience with distributed systems, large-scale data processing, or cloud-based architectures. Strong problem-solving skills and a passion for building high-quality software. Excellent communication and collaboration abilities.",
+        benefits: "Competitive salary and equity compensation. Comprehensive health, dental, and vision insurance. 401(k) with company match. Generous parental leave. On-site wellness and fitness centers. Free meals and snacks. Professional development and learning opportunities.",
         telecommuting: false,
-        url: "https://www.food52.com/careers/internship"
+        url: "https://careers.google.com/jobs/results/software-engineer"
     };
 
     const fakeTemplate = {
-        title: "IC&E Technician",
-        location: "US, CA, Bakersfield",
-        required_experience: "Mid-Senior level",
-        required_education: "High School or equivalent",
-        industry: "Oil & Energy",
-        function: "Other",
-        company_profile: "Staffing & Recruiting done right for the Oil & Energy Industry! Represented candidates are automatically granted the following perks: Expert negotiations on your behalf, maximizing your compensation package and implementing ongoing increases. Significant signing bonus by Refined Resources. 1 Year access to AnyPerk: significant corporate discounts on cell phones, event tickets, house cleaning and everything in between.",
-        description: "IC&E Technician | Bakersfield, CA Mt. Poso. Principal Duties and Responsibilities: Calibrates, tests, maintains, troubleshoots, and installs all power plant instrumentation, control systems and electrical equipment. Performs maintenance on motor control centers, motor operated valves, generators, excitation equipment and motors. Performs preventive, predictive and corrective maintenance on equipment.",
-        requirements: "A high school diploma or GED is required. Must have a valid driver's license. Ability to read, write, and communicate effectively in English. Good math skills. Four years of experience as an I&C Technician and/or Electrician in a power plant environment, preferably with a strong electrical background.",
-        benefits: "What is offered: Competitive compensation package, 100% matched retirement fund, Annual vacations paid for by company, Significant bonus structure, Opportunity for advancement, Full benefits package, Annual performance reviews and base salary increases, Annual cost of living increases.",
-        telecommuting: false,
-        url: "http://refinedresources-jobs.blogspot.com/bakersfield/ice-tech"
+        title: "Home-Based Data Entry Clerk - Earn $5000/Week!",
+        location: "US, Anywhere, Remote",
+        required_experience: "Not Applicable",
+        required_education: "Unspecified",
+        industry: "Internet",
+        function: "Administrative",
+        company_profile: "We are a global leader in innovative solutions. Our dynamic team is expanding rapidly and we are looking for motivated individuals to join us from the comfort of their own homes. No prior experience needed — we provide full training!",
+        description: "URGENT HIRING! Work from home and earn up to $5000 per week doing simple data entry tasks. No experience required. Start immediately! All you need is a computer and internet connection. This is a once-in-a-lifetime opportunity for anyone looking to make serious money online. Flexible hours, be your own boss. Thousands of people have already joined our program and are making a full-time income from home. Apply NOW before positions fill up! Send your resume and a $50 processing fee to our HR department to get started.",
+        requirements: "Must be 18 years or older. Must have a computer and internet access. No experience or degree needed. Must be willing to learn. Send application fee of $50 via wire transfer to confirm your spot.",
+        benefits: "Unlimited earning potential. Work from anywhere in the world. Set your own schedule. Full training provided. Weekly payments via direct deposit or wire transfer.",
+        telecommuting: true,
+        url: "http://easy-home-jobs-apply-now.blogspot.com/data-entry"
     };
 
     document.getElementById('btn-load-real').addEventListener('click', () => {
@@ -417,13 +398,24 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => { urlInput.style.borderColor = ''; }, 1500);
             return;
         }
+        // Hide previous telemetry details if open
+        const scrapeDetails = document.getElementById('url-scrape-details');
+        if (scrapeDetails) scrapeDetails.style.display = 'none';
 
         // Show loading state
         btnScan.disabled = true;
         btnScan.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Scanning...';
         urlStatus.style.display = 'flex';
-        urlStatusText.textContent = 'Fetching page content...';
         urlStatus.className = 'url-scanner-status status-loading';
+
+        // Dynamic Loading Indicators
+        const loadingTexts = ['Connecting...', 'Parsing HTML...', 'Extracting Profile...'];
+        let currentTextIdx = 0;
+        urlStatusText.textContent = loadingTexts[currentTextIdx];
+        const statusTextInterval = setInterval(() => {
+            currentTextIdx = (currentTextIdx + 1) % loadingTexts.length;
+            urlStatusText.textContent = loadingTexts[currentTextIdx];
+        }, 850);
 
         try {
             const response = await fetch('/scrape', {
@@ -467,6 +459,26 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
 
+                // Populate Scrape Telemetry UI
+                document.getElementById('scrape-title-val').textContent = d.title || 'Not Detected';
+                document.getElementById('scrape-company-val').textContent = d.company_profile || 'Not Detected';
+                document.getElementById('scrape-location-val').textContent = d.location || 'Not Detected';
+
+                // SSL Status check based on scheme
+                const isHttps = url.toLowerCase().startsWith('https://');
+                if (isHttps) {
+                    document.getElementById('scrape-security-val').innerHTML = '<span class="text-success"><i class="fa-solid fa-lock"></i> HTTPS Secure</span>';
+                } else {
+                    document.getElementById('scrape-security-val').innerHTML = '<span class="text-warning"><i class="fa-solid fa-unlock"></i> Unsafe HTTP / No SSL</span>';
+                }
+
+                // Work Model remote check
+                document.getElementById('scrape-remote-val').textContent = d.telecommuting ? 'Remote (WFH)' : 'On-site / Hybrid';
+
+                if (scrapeDetails) {
+                    scrapeDetails.style.display = 'block';
+                }
+
                 // Success state
                 urlStatus.className = 'url-scanner-status status-success';
                 urlStatusText.textContent = `Page scraped successfully! Fields auto-filled from: ${d.source_url}`;
@@ -495,6 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
             urlStatus.className = 'url-scanner-status status-error';
             urlStatusText.textContent = 'Connection error. Make sure the backend is running.';
         } finally {
+            clearInterval(statusTextInterval);
             btnScan.disabled = false;
             btnScan.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> Scan Link';
         }
