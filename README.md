@@ -25,6 +25,14 @@
 
 ---
 
+## 🎥 Demo Video
+
+[![ScamShield Demo Video](https://img.youtube.com/vi/W4LjWAeOBSo/maxresdefault.jpg)](https://youtu.be/W4LjWAeOBSo)
+
+*Click the image above to watch a full demonstration of ScamShield in action.*
+
+---
+
 ## ✨ Key Features
 
 - **Real-Time Threat Detection**: Instantaneous analysis of job postings to identify potential scams.
