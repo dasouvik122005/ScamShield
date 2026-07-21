@@ -17,95 +17,125 @@
   <a href="SECURITY.md"><strong>Security Policy</strong></a>
 </p>
 
-# ScamShield: Fake Job Posting Detection Platform (2026 Upgrades)
+---
 
-ScamShield is a real-time AI/ML platform that audits job descriptions, checks URLs, verifies company registrations, and analyzes recruiter contact channels to calculate a comprehensive **Trust Score (0-100%)** before applicants submit their data.
+# ScamShield: Fake Job Posting Detection Platform
+
+**ScamShield** is an advanced, real-time AI/ML platform designed to protect job seekers from fraudulent employment opportunities. By actively auditing job descriptions, verifying URLs and corporate registrations, and analyzing recruiter contact channels, ScamShield calculates a comprehensive **Trust Score (0-100%)** before applicants submit their sensitive data.
+
+---
+
+## ✨ Key Features
+
+- **Real-Time Threat Detection**: Instantaneous analysis of job postings to identify potential scams.
+- **Smart URL Scraping**: Automatically fetches and populates job details (title, company, description) from major job boards for seamless analysis.
+- **5-Pillar Trust Engine**: Employs a multi-faceted verification pipeline incorporating machine learning and heuristic risk metrics.
+- **Premium Visual Dashboard**: A sleek, responsive user interface featuring a dynamic horizontal pipeline tracker, theme toggling (Obsidian Dark / Alabaster Light), and detailed trust telemetry.
+- **Automated Reporting**: Generates professional, comprehensive DOCX machine learning reports for in-depth data analysis.
 
 ---
 
 ## 🛠️ System Architecture
 
 ScamShield evaluates job postings using a **7-Stage Horizontal Verification Pipeline**:
-```
-[Ingested] ➔ [NLP Text] ➔ [URL Scan] ➔ [Company Check] ➔ [Recruiter Check] ➔ [Trust Score] ➔ [Decision]
+
+```mermaid
+graph LR
+A[Ingested] --> B[NLP Text]
+B --> C[URL Scan]
+C --> D[Company Check]
+D --> E[Recruiter Check]
+E --> F[Trust Score]
+F --> G[Decision]
 ```
 
 The system verifies credibility across **5 Trust Pillars**:
 
-1. **NLP Text Analysis (Brain)**:
-   - Evaluates semantics using a machine learning text classifier.
-   - Audits vocabulary density and clickbait signals (e.g. excessive exclamation marks).
-   - Analyzes lexical complexity via the **Flesch Reading Ease** index to detect convoluted machine-generated templates.
-2. **URL Phishing Scan (Link)**:
-   - Inspects embedded links for secure SSL protocols (`https://` protocols vs insecure `http://`).
-   - Audits domains against suspicious free hosting providers (e.g., Blogspot, WordPress, Wix) and url shorteners (e.g., bit.ly).
-3. **Company Check (Magnifying Glass)**:
-   - Validates description completeness (checks if company profiles are missing or too short).
+1. **🧠 NLP Text Analysis**:
+   - Evaluates semantics using a high-performance machine learning text classifier.
+   - Audits vocabulary density and detects clickbait signals (e.g., excessive exclamation marks).
+   - Analyzes lexical complexity via the **Flesch Reading Ease** index to expose convoluted, machine-generated templates.
+2. **🔗 URL Phishing Scan**:
+   - Inspects embedded links for secure SSL protocols (`https://` vs `http://`).
+   - Audits domains against suspicious free hosting providers (e.g., WordPress, Wix) and URL shorteners (e.g., bit.ly).
+3. **🏢 Company Verification**:
+   - Validates description completeness to flag exceptionally brief or missing company profiles.
    - Audits company names against official corporate registry structures (identifying standard suffixes like *Ltd*, *Inc*, *LLP*, *Pvt*).
-4. **Recruiter Behavior Check (Shield)**:
-   - Scans for personal contact details (embedded personal emails and phone numbers in the description text).
-   - Audits email domains, distinguishing between public free email providers (e.g. `@gmail.com`, `@yahoo.com`) and validated corporate domains.
+4. **🛡️ Recruiter Behavior Check**:
+   - Scans for embedded personal emails and phone numbers in the description text.
+   - Distinguishes between public free email providers (e.g., `@gmail.com`) and validated corporate domains.
    - Cross-references job locations against historical regional fraud ratios.
    - Flags pressure tactics and urgency terms (e.g., *"URGENT"*, *"IMMEDIATE"*).
-5. **Trust Score Engine (Metric/Dial)**:
+5. **🎯 Trust Score Engine**:
    - Integrates machine learning probabilities and heuristic risk metrics to compute a credibility rating (**0 to 100%**).
-   - **80% - 100%**: High Trust (Verified Safe / Approved)
-   - **50% - 79%**: Neutral Risk (Verification Advised)
-   - **Below 50%**: Low Trust (Scam Vulnerability Alert / Application Blocked)
+   - 🟢 **80% - 100%**: High Trust (Verified Safe / Approved)
+   - 🟡 **50% - 79%**: Neutral Risk (Verification Advised)
+   - 🔴 **Below 50%**: Low Trust (Scam Vulnerability Alert / Application Blocked)
 
 ---
 
-## 📈 Machine Learning & Model Performance
+## 📈 Model Performance & Telemetry
 
-The core prediction models have been upgraded to maximize prediction accuracy and minimize false-positive warning triggers:
+Our core prediction models have been meticulously engineered to maximize prediction accuracy and minimize false-positive warning triggers. 
 
-* **Text Classifier**: Upgraded from `CountVectorizer` to `TfidfVectorizer` (with 10,000 max features) and trained an `SGDClassifier(loss='log_loss')` on balanced training sets using `SMOTE`. This filters vocabulary noise, raising the individual text F1-score from **76.52%** to **80.97%**.
-* **Tabular Classifier**: Replaced the linear model with a tree-based `RandomForestClassifier` (100 estimators) which naturally models non-linear correlations (like location threat ratios, character lengths, and Flesch scores) without scaling bias. This boosted the individual tabular F1-score from **16.54%** to **56.32%**.
-* **Ensemble Soft Voting**: Combined model outputs using a weighted soft-voting model (`0.5 * Text Risk + 0.5 * Tabular Risk`) combined with a heuristic check penalty. This produces:
-  - **Ensemble Accuracy**: **98.11%** (was 93.74%)
-  - **Ensemble F1 Score**: **84.93%** (was 62.31%)
-  - **Ensemble Precision**: **89.86%** (was 51.71% — **reducing false alarm flags by 90%**)
-  - **Ensemble Recall**: **80.52%** (was 78.35%)
+- **Text Classifier (NLP)**: Upgraded to `TfidfVectorizer` (10,000 max features) combined with an `SGDClassifier(loss='log_loss')`. Trained on balanced sets using `SMOTE`, filtering vocabulary noise and raising the individual text F1-score to **80.97%**.
+- **Tabular Classifier**: Utilizes a powerful `RandomForestClassifier` (100 estimators) to naturally model non-linear correlations (e.g., location threat ratios, character lengths, Flesch scores) without scaling bias, achieving an individual tabular F1-score of **56.32%**.
+- **Ensemble Fusion (Soft Voting)**: Combines model outputs using a weighted soft-voting algorithm (`0.5 * Text Risk + 0.5 * Tabular Risk`) combined with a heuristic check penalty.
 
----
-
-## 🎨 Premium Visual Interface
-
-The interface is built using Vanilla CSS for clean separation of concerns and features:
-* **Horizontal Pipeline Tracker**: Connects processing nodes with glowing neon tracks, animating step-by-step during live scans.
-* **Trust Pillars Grid**: Sleek, hover-responsive cards representing the 4 checks (NLP, URL, Company, Recruiter) with color-coded status badges (`Passed` in green, `Warning` in amber, `Failed` in red).
-* **Theme Toggle Switch**: Sun/Moon switch in the header that toggles between:
-  - *Obsidian Dark Theme*: A dark obsidian slate background (`#080a14`) with amethyst purple accents and glowing elements.
-  - *Alabaster Light Theme*: A soft slate-cream background (`#f8fafc`) with deep indigo highlights and clean card shadows.
-* **Developer telemetry fine print**: A small section at the bottom displaying raw machine learning model flags and location ratios for validation.
+**Overall Ensemble Performance:**
+- **Accuracy**: 98.11%
+- **Precision**: 89.86% *(Significantly reducing false alarm flags)*
+- **Recall**: 80.52%
+- **F1 Score**: 84.93%
 
 ---
 
-## 🚀 How to Set Up and Run
+## 🚀 Quick Start Guide
 
 ### 1. Prerequisites
-Install the required packages:
+
+Ensure you have Python 3.12+ installed. Install the required dependencies:
+
 ```bash
-pip install flask pandas numpy scikit-learn imbalanced-learn joblib textstat beautifulsoup4 nltk
+pip install -r requirements.txt
 ```
+*(Or install manually: `pip install flask pandas numpy scikit-learn imbalanced-learn joblib textstat beautifulsoup4 nltk python-docx`)*
 
 ### 2. Train the Models
-Train and serialize the TF-IDF vectorizers and Random Forest classifiers on the balanced dataset:
+
+Train and serialize the TF-IDF vectorizers and Random Forest classifiers on the provided balanced dataset. 
+
 ```bash
 python train_model.py
 ```
-This script will output the accuracy metrics and save the binary files into the `models/` directory:
-- `tfidf_vectorizer.pkl`
-- `clf_log.pkl` (text classifier)
-- `clf_num.pkl` (tabular classifier)
-- `numeric_features.pkl`
+*This step outputs accuracy metrics and saves the binary model files (`tfidf_vectorizer.pkl`, `clf_log.pkl`, `clf_num.pkl`, `numeric_features.pkl`) into the `models/` directory.*
 
-### 3. Run the Web Server
-Launch the Flask development server:
+### 3. Launch the Application
+
+Start the Flask development server:
+
 ```bash
 python app.py
 ```
-Open your web browser and navigate to **`http://127.0.0.1:5000`** to access the dashboard.
+Navigate to **`http://127.0.0.1:5000`** in your web browser to access the ScamShield dashboard.
 
-### 4. Interactive Scrapes
-Paste a job listing link (e.g. from LinkedIn or Indeed) into the **Smart URL Scan** tab. The scraping crawler will auto-fetch the job title, company name, location, and description, pre-populate the input fields, switch to the manual tab, and automatically trigger the ML threat analysis.
+---
+
+## 📊 Generating Analytics Reports
+
+ScamShield includes a built-in professional report generator that compiles ML telemetry, charts, and key findings into an editable DOCX document.
+
+```bash
+python generate_report.py
+```
+*Generated reports and visualization assets are saved in the `report_assets/` directory.*
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions to ScamShield! Please see our [Contributing Guidelines](CONTRIBUTING.md) for more details on how to get started, report bugs, or submit pull requests.
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
