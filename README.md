@@ -27,7 +27,7 @@
 
 ## 🎥 Demo Video
 
-[![ScamShield Demo Video](https://img.youtube.com/vi/W4LjWAeOBSo/maxresdefault.jpg)](https://youtu.be/W4LjWAeOBSo)
+[![ScamShield Demo Video](https://img.youtube.com/vi/W4LjWAeOBSo/maxresdefault.jpg)]
 
 *Click the image above to watch a full demonstration of ScamShield in action.*
 
