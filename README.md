@@ -31,7 +31,6 @@
 - **Smart URL Scraping**: Automatically fetches and populates job details (title, company, description) from major job boards for seamless analysis.
 - **5-Pillar Trust Engine**: Employs a multi-faceted verification pipeline incorporating machine learning and heuristic risk metrics.
 - **Premium Visual Dashboard**: A sleek, responsive user interface featuring a dynamic horizontal pipeline tracker, theme toggling (Obsidian Dark / Alabaster Light), and detailed trust telemetry.
-- **Automated Reporting**: Generates professional, comprehensive DOCX machine learning reports for in-depth data analysis.
 
 ---
 
@@ -119,18 +118,7 @@ python app.py
 ```
 Navigate to **`http://127.0.0.1:5000`** in your web browser to access the ScamShield dashboard.
 
----
 
-## 📊 Generating Analytics Reports
-
-ScamShield includes a built-in professional report generator that compiles ML telemetry, charts, and key findings into an editable DOCX document.
-
-```bash
-python generate_report.py
-```
-*Generated reports and visualization assets are saved in the `report_assets/` directory.*
-
----
 
 ## 🤝 Contributing
 
